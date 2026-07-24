@@ -45,7 +45,10 @@ const boutonsAjouterPanier = document.querySelectorAll(".bouton-ajouter-panier")
 
 // ===== Donnees =====
 
-// La liste des oeuvres, chargee depuis data/article.json
+// L'API (gallery_api) sert de base de donnees : catalogue et connexion admin.
+const API_BASE = "http://localhost:8001";
+
+// La liste des oeuvres, chargee depuis l'API
 let articles = [];
 
 // Le panier de l'utilisateur, garde uniquement en memoire (il se vide si on recharge la page).
@@ -60,8 +63,8 @@ boutonsAjouterPanier.forEach(function (bouton) {
   bouton.disabled = true;
 });
 
-// On charge les oeuvres depuis le fichier JSON des qu'on arrive sur la page
-fetch("data/article.json")
+// On charge les oeuvres depuis l'API des qu'on arrive sur la page
+fetch(API_BASE + "/articles")
   .then(function (reponse) {
     return reponse.json();
   })
@@ -72,22 +75,19 @@ fetch("data/article.json")
     });
   })
   .catch(function (erreur) {
-    console.error("Impossible de charger data/article.json :", erreur);
+    console.error("Impossible de charger le catalogue depuis l'API :", erreur);
     afficherErreurChargement();
   });
 
 // Message visible si le catalogue ne charge pas (evite de devoir ouvrir la
 // console pour comprendre pourquoi les boutons restent desactives). La cause
-// la plus frequente : la page est ouverte en double-clic (file://...) au lieu
-// d'etre servie par un serveur local, et fetch() ne peut pas lire un fichier
-// local pour des raisons de securite.
+// la plus frequente : l'API (gallery_api, port 8001) n'est pas lancee.
 function afficherErreurChargement() {
   const banniere = document.createElement("p");
   banniere.className = "erreur-chargement";
   banniere.textContent =
-    "Impossible de charger le catalogue (data/article.json), les boutons \"Ajouter au panier\" restent desactives. " +
-    "Si l'adresse de la page commence par file://, c'est la cause : lance un serveur local " +
-    "(ex. python -m http.server) puis ouvre http://localhost:.../gallery.html.";
+    "Impossible de charger le catalogue depuis l'API (" + API_BASE + "), les boutons \"Ajouter au panier\" restent desactives. " +
+    "Verifie que le serveur gallery_api est bien lance.";
   document.querySelector("main").prepend(banniere);
 }
 

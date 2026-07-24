@@ -448,6 +448,26 @@ main {
   color: #f4f1ea;
 }
 
+.cellule-prix input,
+.cellule-stock input {
+  width: 100px;
+  padding: 6px;
+  font-family: inherit;
+}
+
+.cellule-actions button {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.statut-tableau {
+  font-size: 0.85em;
+  color: #9c3b2e;
+}
+
 
 /* FOOTER */
 

@@ -1,10 +1,11 @@
-// Page d'administration : verifie le login/mot de passe par rapport a
-// data/user.json, puis affiche le stock des oeuvres depuis data/article.json.
+// Page d'administration : verifie le login/mot de passe aupres de l'API
+// gallery_api (POST /login), puis affiche le stock des oeuvres (GET
+// /articles) et permet de le modifier (PUT /articles/{id}). Toutes les
+// donnees vivent desormais dans l'API, plus aucun fichier JSON lu en local.
 //
-// Exercice pour manipuler du JSON en JavaScript (fetch, recherche dans un
-// objet, generation de tableau HTML). Ce n'est PAS une vraie securite : le
-// mot de passe est verifie cote navigateur, donc data/user.json et ce fichier
-// restent lisibles par n'importe qui.
+// Exercice pour manipuler du JSON en JavaScript/Python. Ce n'est PAS une
+// vraie securite : pas de session ni de jeton, juste une comparaison
+// login/mot de passe a chaque connexion.
 
 const formulaireConnexion = document.querySelector("#formulaire-connexion");
 const champLogin = document.querySelector("#champ-login");
@@ -15,10 +16,12 @@ const blocTableau = document.querySelector("#tableau-admin");
 const corpsTableauStock = document.querySelector("#corps-tableau-stock");
 const statutTableau = document.querySelector(".statut-tableau");
 
-// Les oeuvres chargees depuis data/article.json, gardees en memoire pour
-// pouvoir les modifier (prix, stock) directement dans le tableau. Comme le
-// reste du site, rien n'est reecrit sur le disque : les modifications se
-// perdent si on recharge la page.
+// L'API (gallery_api) qui sert et met a jour data/article.json. Evite d'avoir
+// a faire choisir un fichier a l'utilisateur : le serveur ecrit lui-meme sur
+// le disque quand on valide une modification.
+const API_BASE = "http://localhost:8001";
+
+// Les oeuvres chargees depuis l'API, gardees en memoire pour l'affichage.
 let articlesAdmin = [];
 
 // Formate un nombre en prix, ex: 250000 -> "250 000 Ar"
@@ -26,9 +29,9 @@ function formaterPrix(nombre) {
   return nombre.toLocaleString("fr-FR") + " Ar";
 }
 
-// Charge data/article.json puis dessine le tableau
+// Charge le catalogue depuis l'API puis dessine le tableau
 function afficherTableauStock() {
-  fetch("data/article.json")
+  fetch(API_BASE + "/articles")
     .then(function (reponse) {
       return reponse.json();
     })
@@ -37,10 +40,10 @@ function afficherTableauStock() {
       redessinerTableau();
     })
     .catch(function (erreur) {
-      console.error("Impossible de charger data/article.json :", erreur);
+      console.error("Impossible de charger le catalogue depuis l'API :", erreur);
       blocTableau.querySelector("h2").insertAdjacentHTML(
         "afterend",
-        '<p class="erreur-chargement">Impossible de charger le catalogue (data/article.json).</p>'
+        '<p class="erreur-chargement">Impossible de joindre l\'API (' + API_BASE + '). Verifie qu\'elle est bien lancee.</p>'
       );
     });
 }
@@ -86,9 +89,25 @@ function passerEnEdition(ligne, article) {
     '<button type="button" class="bouton-annuler-ligne" title="Annuler">✕</button>';
 }
 
+// Demande a l'API de mettre a jour le prix/stock d'une oeuvre. C'est le
+// serveur qui reecrit data/article.json, donc aucun fichier a choisir.
+async function enregistrerArticleSurApi(article) {
+  const reponse = await fetch(API_BASE + "/articles/" + article.id, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ price: article.price, stock: article.stock })
+  });
+
+  if (!reponse.ok) {
+    throw new Error("L'API a refuse la mise a jour (code " + reponse.status + ").");
+  }
+
+  return reponse.json();
+}
+
 // Un seul ecouteur sur le tableau (delegation), plutot qu'un par bouton :
 // pratique car les lignes sont recreees a chaque modification/annulation.
-corpsTableauStock.addEventListener("click", function (evenement) {
+corpsTableauStock.addEventListener("click", async function (evenement) {
   const ligne = evenement.target.closest("tr");
   if (!ligne) {
     return;
@@ -120,26 +139,42 @@ corpsTableauStock.addEventListener("click", function (evenement) {
       return;
     }
 
+    const prixPrecedent = article.price;
+    const stockPrecedent = article.stock;
+
     article.price = nouveauPrix;
     article.stock = nouveauStock;
 
-    ligne.replaceWith(creerLigne(article));
+    try {
+      const articleMisAJour = await enregistrerArticleSurApi(article);
+      article.price = articleMisAJour.price;
+      article.stock = articleMisAJour.stock;
+
+      statutTableau.textContent = "";
+      ligne.replaceWith(creerLigne(article));
+    } catch (erreur) {
+      console.error("Impossible d'enregistrer via l'API :", erreur);
+      article.price = prixPrecedent;
+      article.stock = stockPrecedent;
+      statutTableau.textContent = "Impossible d'enregistrer : verifie que l'API (gallery_api) est bien lancee.";
+    }
   }
 });
 
-// Verifie le login/mot de passe saisi par rapport a data/user.json
+// Verifie le login/mot de passe aupres de l'API (POST /login)
 formulaireConnexion.addEventListener("submit", function (evenement) {
   evenement.preventDefault();
 
   const login = champLogin.value.trim();
   const motDePasse = champMotDePasse.value;
 
-  fetch("data/user.json")
+  fetch(API_BASE + "/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ login: login, password: motDePasse })
+  })
     .then(function (reponse) {
-      return reponse.json();
-    })
-    .then(function (utilisateur) {
-      if (utilisateur.login === login && utilisateur.password === motDePasse) {
+      if (reponse.ok) {
         blocConnexion.hidden = true;
         blocTableau.hidden = false;
         afficherTableauStock();
@@ -148,7 +183,7 @@ formulaireConnexion.addEventListener("submit", function (evenement) {
       }
     })
     .catch(function (erreur) {
-      console.error("Impossible de charger data/user.json :", erreur);
-      statutConnexion.textContent = "Erreur : impossible de verifier les identifiants.";
+      console.error("Impossible de joindre l'API pour la connexion :", erreur);
+      statutConnexion.textContent = "Erreur : impossible de joindre l'API (verifie que gallery_api est lancee).";
     });
 });

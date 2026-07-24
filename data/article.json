@@ -5,9 +5,9 @@
         "image": "img/oeuvre1.jfif",
         "description": "Peinture acrylique aux formes libres et aux couleurs vives, née d'une improvisation un matin de pluie où l'artiste a laissé la couleur guider sa main.",
         "detail": "Sophie peint rarement avec un plan précis. « Eclats acryliques » est née un matin de pluie à Antananarivo, alors qu'elle attendait que l'orage passe avant de sortir. Faute de pouvoir peindre son sujet habituel, elle a laissé le pinceau suivre le rythme de la pluie sur la vitre. Le résultat : une explosion de formes libres, sans motif reconnaissable, qui capture cette attente et cette impatience créative.",
-        "price": 250000,
+        "price": 250000.0,
         "artiste": "Sophie Randria",
-        "stock": 4
+        "stock": 14
     },
     {
         "id": "PAINT02",
@@ -55,7 +55,7 @@
         "image": "img/oeuvre6.jfif",
         "description": "Sculpture textile représentant des oiseaux tissés avec des restes de laine, offerte à l'origine comme cadeau de départ.",
         "detail": "Lala a tissé ces oiseaux pour le départ d'une amie qui quittait Madagascar. Ne sachant pas coudre de vêtement à temps, elle a utilisé les restes de laine de trois pulls inachevés pour créer un envol figé, comme un au revoir qu'on peut accrocher au mur plutôt que dire à voix haute.",
-        "price": 195000,
+        "price": 195000.0,
         "artiste": "Lala Rasoa",
         "stock": 3
     },
@@ -85,7 +85,7 @@
         "image": "img/oeuvre9.jpg",
         "description": "Lémurien modelé en terre cuite de Betafo, cuit au feu de bois selon une méthode de potière traditionnelle.",
         "detail": "Hanta est potière à Betafo, une région connue pour son argile rouge. Elle sculpte habituellement des marmites, mais s'autorise depuis peu quelques figures animalières entre deux commandes. Ce lémurien a été cuit dans le même four à bois familial que la vaisselle, ce qui lui donne ces variations de teinte, du roux au presque noir, selon la proximité des flammes.",
-        "price": 260000,
+        "price": 260000.0,
         "artiste": "Hanta Razafy",
         "stock": 3
     }

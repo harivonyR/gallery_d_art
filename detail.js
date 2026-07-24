@@ -1,6 +1,8 @@
 // Lit l'id de l'oeuvre depuis l'adresse (ex: detail.html?id=PAINT01)
-// et remplit la page a partir de data/article.json. Une seule page sert
-// ainsi de modele pour toutes les oeuvres, au lieu d'une page par oeuvre.
+// et remplit la page a partir du catalogue de l'API (gallery_api). Une
+// seule page sert ainsi de modele pour toutes les oeuvres, au lieu d'une
+// page par oeuvre. API_BASE est deja definie par script.js, charge avant
+// ce fichier dans detail.html.
 
 const parametres = new URLSearchParams(window.location.search);
 const idOeuvre = parametres.get("id");
@@ -16,7 +18,7 @@ function formaterPrixDetail(nombre) {
   return nombre.toLocaleString("fr-FR") + " Ar";
 }
 
-fetch("data/article.json")
+fetch(API_BASE + "/articles")
   .then(function (reponse) {
     return reponse.json();
   })
@@ -42,7 +44,7 @@ fetch("data/article.json")
     detailBoutonAjouter.dataset.id = article.id;
   })
   .catch(function (erreur) {
-    console.error("Impossible de charger data/article.json :", erreur);
+    console.error("Impossible de charger le catalogue depuis l'API :", erreur);
     detailTitre.textContent = "Erreur de chargement";
-    detailHistoire.textContent = "Le catalogue n'a pas pu etre charge. Verifie que la page est ouverte via un serveur local (http://...), pas en double-clic.";
+    detailHistoire.textContent = "Le catalogue n'a pas pu etre charge depuis l'API. Verifie que le serveur gallery_api est bien lance.";
   });
