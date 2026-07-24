@@ -19,7 +19,7 @@ const statutTableau = document.querySelector(".statut-tableau");
 // L'API (gallery_api) qui sert et met a jour data/article.json. Evite d'avoir
 // a faire choisir un fichier a l'utilisateur : le serveur ecrit lui-meme sur
 // le disque quand on valide une modification.
-const API_BASE = "http://localhost:8001";
+const API_BASE = "https://gallery-api-nine.vercel.app";
 
 // Les oeuvres chargees depuis l'API, gardees en memoire pour l'affichage.
 let articlesAdmin = [];

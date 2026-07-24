@@ -46,7 +46,7 @@ const boutonsAjouterPanier = document.querySelectorAll(".bouton-ajouter-panier")
 // ===== Donnees =====
 
 // L'API (gallery_api) sert de base de donnees : catalogue et connexion admin.
-const API_BASE = "http://localhost:8001";
+const API_BASE = "https://gallery-api-nine.vercel.app";
 
 // La liste des oeuvres, chargee depuis l'API
 let articles = [];
