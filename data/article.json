@@ -1,0 +1,92 @@
+[
+    {
+        "id": "PAINT01",
+        "titre": "Eclats acryliques",
+        "image": "img/oeuvre1.jfif",
+        "description": "Peinture acrylique aux formes libres et aux couleurs vives, née d'une improvisation un matin de pluie où l'artiste a laissé la couleur guider sa main.",
+        "detail": "Sophie peint rarement avec un plan précis. « Eclats acryliques » est née un matin de pluie à Antananarivo, alors qu'elle attendait que l'orage passe avant de sortir. Faute de pouvoir peindre son sujet habituel, elle a laissé le pinceau suivre le rythme de la pluie sur la vitre. Le résultat : une explosion de formes libres, sans motif reconnaissable, qui capture cette attente et cette impatience créative.",
+        "price": 250000,
+        "artiste": "Sophie Randria",
+        "stock": 4
+    },
+    {
+        "id": "PAINT02",
+        "titre": "Le Penseur",
+        "image": "img/oeuvre2.jpg",
+        "description": "Sculpture en bois représentant un homme assis, plongé dans ses pensées — taillée dans une seule pièce de palissandre récupérée sur un chantier.",
+        "detail": "Mamy a trouvé ce morceau de palissandre sur un chantier de démolition, promis à la benne. Il y a vu la posture d'un vieil homme qu'il croisait enfant sur la place du village, toujours assis au même endroit, silencieux. Trois semaines de sculpture plus tard, « Le Penseur » a pris cette forme épurée, sans détail superflu, comme un souvenir qu'on n'a gardé que dans ses grandes lignes.",
+        "price": 180000,
+        "artiste": "Mamy Rakoto",
+        "stock": 3
+    },
+    {
+        "id": "PAINT03",
+        "titre": "Chevaux de plastique",
+        "image": "img/oeuvre3.jpg",
+        "description": "Deux chevaux au galop assemblés à partir de bouchons et d'emballages récupérés sur les plages de la côte est.",
+        "detail": "Fara ramasse des déchets plastiques sur les plages près de Toamasina depuis plusieurs années. Cette paire de chevaux, l'un noir, l'autre blanc, est née d'un défi qu'elle s'était lancé : transformer un sac de bouchons et d'emballages en quelque chose qui donne envie de courir plutôt que de fuir. Chaque pièce garde sa couleur d'origine, sans peinture ajoutée.",
+        "price": 320000,
+        "artiste": "Fara Andria",
+        "stock": 2
+    },
+    {
+        "id": "PAINT04",
+        "titre": "Vase en fleurs",
+        "image": "img/oeuvre4.webp",
+        "description": "Vase créé à partir d'une bouteille recyclée, orné de fleurs et de champignons sculptés à la main dans la même matière.",
+        "detail": "Tovo a commencé à sculpter des bouteilles en plastique pendant le confinement, faute d'accès à ses outils habituels. Ce vase est l'une de ses premières pièces abouties : chaque fleur est découpée et modelée à la chaleur d'une bougie, un geste qu'il a appris par erreur en faisant fondre une bouteille par accident.",
+        "price": 275000,
+        "artiste": "Tovo Rabe",
+        "stock": 5
+    },
+    {
+        "id": "PAINT05",
+        "titre": "Univers d'enfance",
+        "image": "img/oeuvre5.jfif",
+        "description": "Collection de peintures acryliques aux couleurs vives, inspirée des dessins que l'artiste faisait enfant sur les murs de la maison familiale.",
+        "detail": "Njaka a longtemps caché ces toiles, les trouvant trop naïves pour être exposées. Elles reprennent, presque trait pour trait, des dessins qu'il faisait enfant à la craie sur le mur de la cour familiale — et que sa mère effaçait chaque semaine. Cette série est sa façon de les rendre enfin permanentes.",
+        "price": 210000,
+        "artiste": "Njaka Andria",
+        "stock": 6
+    },
+    {
+        "id": "PAINT06",
+        "titre": "Envol de laine",
+        "image": "img/oeuvre6.jfif",
+        "description": "Sculpture textile représentant des oiseaux tissés avec des restes de laine, offerte à l'origine comme cadeau de départ.",
+        "detail": "Lala a tissé ces oiseaux pour le départ d'une amie qui quittait Madagascar. Ne sachant pas coudre de vêtement à temps, elle a utilisé les restes de laine de trois pulls inachevés pour créer un envol figé, comme un au revoir qu'on peut accrocher au mur plutôt que dire à voix haute.",
+        "price": 195000,
+        "artiste": "Lala Rasoa",
+        "stock": 3
+    },
+    {
+        "id": "PAINT07",
+        "titre": "Broderie des hautes terres",
+        "image": "img/oeuvre7.png",
+        "description": "Broderie de raphia représentant les rizières en terrasse des hautes terres, technique transmise de mère en fille depuis trois générations.",
+        "detail": "Voahangy a appris à broder le raphia sur les genoux de sa grand-mère, qui elle-même la tenait de la sienne. Cette pièce reproduit les rizières en terrasse qu'on voit depuis la maison familiale à Ambositra, avec un fil différent pour chaque saison de culture : vert tendre pour la pousse, doré pour la récolte.",
+        "price": 230000,
+        "artiste": "Voahangy Rasolofo",
+        "stock": 4
+    },
+    {
+        "id": "PAINT08",
+        "titre": "Zébu de tôle",
+        "image": "img/oeuvre8.png",
+        "description": "Zébu miniature assemblé à partir de boîtes de conserve, dans la tradition des jouets en tôle fabriqués par les enfants malgaches.",
+        "detail": "Solo fabrique ces zébus depuis qu'il est enfant, quand faute de jouets, les enfants du quartier découpaient des boîtes de conserve pour en faire des animaux et des voitures à roulettes. Il n'a jamais arrêté. Cette pièce, plus soignée que celles de son enfance, garde volontairement les marques d'étiquettes visibles sous la peinture, en hommage à cette technique de récupération.",
+        "price": 150000,
+        "artiste": "Solo Randrianasolo",
+        "stock": 7
+    },
+    {
+        "id": "PAINT09",
+        "titre": "Lémurien de terre cuite",
+        "image": "img/oeuvre9.jpg",
+        "description": "Lémurien modelé en terre cuite de Betafo, cuit au feu de bois selon une méthode de potière traditionnelle.",
+        "detail": "Hanta est potière à Betafo, une région connue pour son argile rouge. Elle sculpte habituellement des marmites, mais s'autorise depuis peu quelques figures animalières entre deux commandes. Ce lémurien a été cuit dans le même four à bois familial que la vaisselle, ce qui lui donne ces variations de teinte, du roux au presque noir, selon la proximité des flammes.",
+        "price": 260000,
+        "artiste": "Hanta Razafy",
+        "stock": 3
+    }
+]

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petite Galerie - Accueil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- En-tete du site : titre + menu de navigation -->
+  <header class="entete">
+    <h1>Petite Galerie</h1>
+    <nav class="menu">
+      <a href="#oeuvres">Oeuvres</a>
+      <a href="#medias">Medias</a>
+      <a href="#apropos">A propos</a>
+      <a href="#" class="lien-panier" aria-label="Voir le panier (0 articles)">
+        🛒
+        <span class="badge-panier">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- Panier lateral : cache par defaut, affiche quand on clique sur le lien panier -->
+  <aside id="panier-lateral" class="panier-lateral">
+    <div class="panier-entete">
+      <h2>Mon panier</h2>
+      <button type="button" class="bouton-fermer-panier" aria-label="Fermer le panier">✕</button>
+    </div>
+
+    <p class="panier-vide">Votre panier est vide.</p>
+
+    <ul class="liste-panier"></ul>
+
+    <p class="panier-total">Total : <span class="montant-total">0 Ar</span></p>
+
+    <!-- Valide la commande : deduit le stock de chaque oeuvre dans
+         data/article.json (demande de connecter ce fichier au premier clic). -->
+    <button type="button" class="bouton-livrer">📦 Livrer la commande</button>
+    <p class="statut-livraison"></p>
+  </aside>
+
+  <!-- Fenetre modale de paiement, ouverte au clic sur "Livrer la commande" -->
+  <div id="modal-paiement" class="modal-fond" hidden>
+    <div class="modal-boite" role="dialog" aria-modal="true" aria-labelledby="modal-paiement-titre">
+      <div class="modal-entete">
+        <h2 id="modal-paiement-titre">Confirmer la commande</h2>
+        <button type="button" class="bouton-fermer-modal" aria-label="Fermer">✕</button>
+      </div>
+
+      <!-- Recap + formulaire, masques une fois le paiement Mobile Money confirme -->
+      <div class="contenu-paiement">
+        <ul class="liste-paiement"></ul>
+        <p class="paiement-total">Total : <span class="montant-paiement-total">0 Ar</span></p>
+
+        <label class="champ-paiement">
+          Mode de paiement
+          <select id="mode-paiement">
+            <option value="especes">Especes a la livraison</option>
+            <option value="mobile_money">Mobile Money</option>
+          </select>
+        </label>
+
+        <!-- Visible si "Especes a la livraison" est choisi -->
+        <div id="bloc-especes" class="bloc-mode-paiement">
+          <label class="champ-paiement">
+            Nom
+            <input type="text" id="livraison-nom" placeholder="Ton nom">
+          </label>
+          <label class="champ-paiement">
+            Adresse de livraison
+            <input type="text" id="livraison-adresse" placeholder="Adresse complete">
+          </label>
+          <label class="champ-paiement">
+            Numero de telephone
+            <input type="tel" id="livraison-telephone" placeholder="03X XX XXX XX">
+          </label>
+        </div>
+
+        <!-- Visible si "Mobile Money" est choisi -->
+        <div id="bloc-mobile-money" class="bloc-mode-paiement" hidden>
+          <p class="info-mobile-money">Envoie le montant total au <strong>03493xxx83</strong> (nom : Harivony), puis indique la reference de la transaction ci-dessous.</p>
+          <label class="champ-paiement">
+            Reference du paiement
+            <input type="text" id="mobile-money-reference" placeholder="Ex: MM240724.1234">
+          </label>
+        </div>
+
+        <button type="button" class="bouton bouton-confirmer-paiement">Confirmer et payer</button>
+        <p class="statut-paiement"></p>
+      </div>
+
+      <!-- Affiche uniquement apres confirmation d'un paiement Mobile Money -->
+      <div class="confirmation-mobile-money" hidden>
+        <p class="confirmation-icone" aria-hidden="true">✅</p>
+        <p class="confirmation-texte"></p>
+        <button type="button" class="bouton bouton-fermer-confirmation">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenu principal de la page -->
+  <main>
+
+    <!-- Section avec toutes les oeuvres -->
+    <section id="oeuvres">
+      <h2>Nos oeuvres</h2>
+
+      <div class="grille-galerie">
+
+        <!-- Une oeuvre = un article -->
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre1.jfif" alt="Oeuvre 1 - Eclats acryliques" loading="lazy">
+          <h3>Eclats acryliques</h3>
+          <p class="artiste">Par Sophie Randria</p>
+          <p class="description">Peinture acrylique aux formes libres et aux couleurs vives, née d'une improvisation un matin de pluie où l'artiste a laissé la couleur guider sa main.</p>
+          <p class="prix">250 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT01">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre1.jfif" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT01" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre2.jpg" alt="Oeuvre 2 - Le Penseur" loading="lazy">
+          <h3>Le Penseur</h3>
+          <p class="artiste">Par Mamy Rakoto</p>
+          <p class="description">Sculpture en bois représentant un homme assis, plongé dans ses pensées — taillée dans une seule pièce de palissandre récupérée sur un chantier.</p>
+          <p class="prix">180 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT02">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre2.jpg" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT02" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre3.jpg" alt="Oeuvre 3 - Chevaux de plastique" loading="lazy">
+          <h3>Chevaux de plastique</h3>
+          <p class="artiste">Par Fara Andria</p>
+          <p class="description">Deux chevaux au galop assemblés à partir de bouchons et d'emballages récupérés sur les plages de la côte est.</p>
+          <p class="prix">320 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT03">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre3.jpg" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT03" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre4.webp" alt="Oeuvre 4 - Vase en fleurs" loading="lazy">
+          <h3>Vase en fleurs</h3>
+          <p class="artiste">Par Tovo Rabe</p>
+          <p class="description">Vase créé à partir d'une bouteille recyclée, orné de fleurs et de champignons sculptés à la main dans la même matière.</p>
+          <p class="prix">275 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT04">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre4.webp" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT04" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre5.jfif" alt="Oeuvre 5 - Univers d'enfance" loading="lazy">
+          <h3>Univers d'enfance</h3>
+          <p class="artiste">Par Njaka Andria</p>
+          <p class="description">Collection de peintures acryliques aux couleurs vives, inspirée des dessins que l'artiste faisait enfant sur les murs de la maison familiale.</p>
+          <p class="prix">210 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT05">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre5.jfif" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT05" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre6.jfif" alt="Oeuvre 6 - Envol de laine" loading="lazy">
+          <h3>Envol de laine</h3>
+          <p class="artiste">Par Lala Rasoa</p>
+          <p class="description">Sculpture textile représentant des oiseaux tissés avec des restes de laine, offerte à l'origine comme cadeau de départ.</p>
+          <p class="prix">195 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT06">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre6.jfif" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT06" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre7.png" alt="Oeuvre 7 - Broderie des hautes terres" loading="lazy">
+          <h3>Broderie des hautes terres</h3>
+          <p class="artiste">Par Voahangy Rasolofo</p>
+          <p class="description">Broderie de raphia représentant les rizières en terrasse des hautes terres, technique transmise de mère en fille depuis trois générations.</p>
+          <p class="prix">230 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT07">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre7.png" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT07" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre8.png" alt="Oeuvre 8 - Zebu de tole" loading="lazy">
+          <h3>Zébu de tôle</h3>
+          <p class="artiste">Par Solo Randrianasolo</p>
+          <p class="description">Zébu miniature assemblé à partir de boîtes de conserve, dans la tradition des jouets en tôle fabriqués par les enfants malgaches.</p>
+          <p class="prix">150 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT08">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre8.png" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT08" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+        <article class="carte-oeuvre">
+          <img src="img/oeuvre9.jpg" alt="Oeuvre 9 - Lemurien de terre cuite" loading="lazy">
+          <h3>Lémurien de terre cuite</h3>
+          <p class="artiste">Par Hanta Razafy</p>
+          <p class="description">Lémurien modelé en terre cuite de Betafo, cuit au feu de bois selon une méthode de potière traditionnelle.</p>
+          <p class="prix">260 000 Ar</p>
+          <div class="liens-carte">
+            <button type="button" class="bouton bouton-ajouter-panier" data-id="PAINT09">🛒 Ajouter au panier</button>
+            <a href="img/oeuvre9.jpg" target="_blank" class="bouton bouton-plein-ecran">🔍 Plein ecran</a>
+            <a href="detail.html?id=PAINT09" class="bouton bouton-detail">Voir les details</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Section pour la video et l'audio -->
+    <section id="medias">
+      <h2>Interview de l'artiste</h2>
+
+      <!-- Video : le fichier n'existe pas encore, c'est un emplacement reserve.
+           Le placeholder.jpg sert d'image d'apercu (poster) en attendant la vraie video. -->
+      <video controls poster="img/oeuvre1.jfif" width="640">
+        <source src="videos/ART MALAGASY - POTI-TARATASY CREATION.mp4" type="video/mp4">
+        
+        Votre navigateur ne supporte pas la lecture de video.
+      </video>
+
+      <h3>Extrait audio</h3>
+      <audio controls>
+        <source src="videos/extrait.m4a" type="audio/mp4">
+        Votre navigateur ne supporte pas la lecture audio.
+      </audio>
+    </section>
+
+    <aside id="apropos" class="bloc-pub">
+      <h3>Publicite</h3>
+      <img src="img/pub_mvola.png" alt="" style="height: 12rem;">
+    </aside>
+  </main>
+
+  <!-- Pied de page -->
+  <footer class="pied-de-page">
+    <p>Made with &#9829; by Petite Galerie</p>
+    <p>Study Purpuse Only</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

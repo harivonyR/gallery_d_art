@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petite Galerie - Detail d'une oeuvre</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--
+    Page detail UNIQUE pour toutes les oeuvres : le contenu (photo, titre,
+    artiste, prix, histoire) est charge depuis data/article.json en fonction
+    du parametre ?id= dans l'adresse (voir detail.js).
+    Exemple : detail.html?id=PAINT01
+  -->
+
+  <header class="entete">
+    <h1>Petite Galerie</h1>
+    <nav class="menu">
+      <a href="gallery.html">Accueil</a>
+      <a href="gallery.html#oeuvres">Oeuvres</a>
+      <a href="#" class="lien-panier" aria-label="Voir le panier (0 articles)">
+        🛒
+        <span class="badge-panier">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- Panier lateral : identique a celui de gallery.html, gere par script.js -->
+  <aside id="panier-lateral" class="panier-lateral">
+    <div class="panier-entete">
+      <h2>Mon panier</h2>
+      <button type="button" class="bouton-fermer-panier" aria-label="Fermer le panier">✕</button>
+    </div>
+
+    <p class="panier-vide">Votre panier est vide.</p>
+
+    <ul class="liste-panier"></ul>
+
+    <p class="panier-total">Total : <span class="montant-total">0 Ar</span></p>
+
+    <button type="button" class="bouton-livrer">📦 Livrer la commande</button>
+    <p class="statut-livraison"></p>
+  </aside>
+
+  <!-- Fenetre modale de paiement, ouverte au clic sur "Livrer la commande" -->
+  <div id="modal-paiement" class="modal-fond" hidden>
+    <div class="modal-boite" role="dialog" aria-modal="true" aria-labelledby="modal-paiement-titre">
+      <div class="modal-entete">
+        <h2 id="modal-paiement-titre">Confirmer la commande</h2>
+        <button type="button" class="bouton-fermer-modal" aria-label="Fermer">✕</button>
+      </div>
+
+      <!-- Recap + formulaire, masques une fois le paiement Mobile Money confirme -->
+      <div class="contenu-paiement">
+        <ul class="liste-paiement"></ul>
+        <p class="paiement-total">Total : <span class="montant-paiement-total">0 Ar</span></p>
+
+        <label class="champ-paiement">
+          Mode de paiement
+          <select id="mode-paiement">
+            <option value="especes">Especes a la livraison</option>
+            <option value="mobile_money">Mobile Money</option>
+          </select>
+        </label>
+
+        <!-- Visible si "Especes a la livraison" est choisi -->
+        <div id="bloc-especes" class="bloc-mode-paiement">
+          <label class="champ-paiement">
+            Nom
+            <input type="text" id="livraison-nom" placeholder="Ton nom">
+          </label>
+          <label class="champ-paiement">
+            Adresse de livraison
+            <input type="text" id="livraison-adresse" placeholder="Adresse complete">
+          </label>
+          <label class="champ-paiement">
+            Numero de telephone
+            <input type="tel" id="livraison-telephone" placeholder="03X XX XXX XX">
+          </label>
+        </div>
+
+        <!-- Visible si "Mobile Money" est choisi -->
+        <div id="bloc-mobile-money" class="bloc-mode-paiement" hidden>
+          <p class="info-mobile-money">Envoie le montant total au <strong>03493xxx83</strong> (nom : Harivony), puis indique la reference de la transaction ci-dessous.</p>
+          <label class="champ-paiement">
+            Reference du paiement
+            <input type="text" id="mobile-money-reference" placeholder="Ex: MM240724.1234">
+          </label>
+        </div>
+
+        <button type="button" class="bouton bouton-confirmer-paiement">Confirmer et payer</button>
+        <p class="statut-paiement"></p>
+      </div>
+
+      <!-- Affiche uniquement apres confirmation d'un paiement Mobile Money -->
+      <div class="confirmation-mobile-money" hidden>
+        <p class="confirmation-icone" aria-hidden="true">✅</p>
+        <p class="confirmation-texte"></p>
+        <button type="button" class="bouton bouton-fermer-confirmation">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="page-detail">
+
+    <!-- Bloc principal : grande photo + histoire de l'oeuvre -->
+    <section class="detail-oeuvre">
+      <img id="detail-image" src="" alt="" class="photo-grande">
+
+      <div class="texte-detail">
+        <h2 id="detail-titre">Chargement…</h2>
+        <p class="artiste" id="detail-artiste"></p>
+        <p class="prix" id="detail-prix"></p>
+
+        <p id="detail-histoire"></p>
+
+        <button type="button" class="bouton bouton-ajouter-panier" id="detail-bouton-ajouter" disabled>🛒 Ajouter au panier</button>
+
+        <a href="gallery.html">Retour a la galerie</a>
+      </div>
+    </section>
+
+    <!-- Bloc de publicite a droite -->
+    <aside class="bloc-pub">
+      <h3>Publicite</h3>
+      <p>Votre annonce ici.</p>
+    </aside>
+
+  </main>
+
+  <footer class="pied-de-page">
+    <p>Fait avec &#9829; par Petite Galerie</p>
+    <p>Contact : harivonyratefiarison@gmail.com</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="detail.js"></script>
+</body>
+</html>
