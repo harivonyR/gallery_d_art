@@ -24,6 +24,12 @@ main {
   background-color: #2b2320;
   color: #f4f1ea;
   padding: 20px 30px;
+  /* Sticky : le header (et donc le badge panier) reste visible en haut de
+     l'ecran meme quand on scrolle la page. */
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .entete h1 {
@@ -65,6 +71,30 @@ main {
   line-height: 16px;
   text-align: center;
   border-radius: 50%;
+}
+
+/* Petit "pop" sur le badge a chaque ajout au panier */
+@keyframes pop-badge {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.6); }
+  100% { transform: scale(1); }
+}
+
+.badge-panier.effet-ajout {
+  animation: pop-badge 0.4s ease;
+}
+
+/* Effet sur le bouton "Ajouter au panier" au moment du clic */
+@keyframes rebond-ajout {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.95); }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.bouton-ajouter-panier.effet-ajout {
+  animation: rebond-ajout 0.35s ease;
+  background-color: #2e7d32;
 }
 
 

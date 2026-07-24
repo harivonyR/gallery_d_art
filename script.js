@@ -109,6 +109,39 @@ function mettreAJourBadge() {
 
   badgePanier.textContent = total;
   lienPanier.setAttribute("aria-label", "Voir le panier (" + total + " articles)");
+
+  declencherEffetBadge();
+}
+
+// Relance l'animation "pop" du badge a chaque mise a jour (le retrait puis
+// l'ajout de la classe force le navigateur a la rejouer, meme sur des clics
+// rapproches).
+function declencherEffetBadge() {
+  badgePanier.classList.remove("effet-ajout");
+  void badgePanier.offsetWidth;
+  badgePanier.classList.add("effet-ajout");
+}
+
+// Petit effet visuel + message temporaire sur le bouton clique, pour
+// confirmer que l'ajout a bien eu lieu.
+const minuteriesEffetBouton = new WeakMap();
+
+function declencherEffetBouton(bouton) {
+  if (!bouton.dataset.texteOriginal) {
+    bouton.dataset.texteOriginal = bouton.textContent;
+  }
+
+  clearTimeout(minuteriesEffetBouton.get(bouton));
+
+  bouton.classList.remove("effet-ajout");
+  void bouton.offsetWidth;
+  bouton.classList.add("effet-ajout");
+  bouton.textContent = "✅ Ajoute !";
+
+  minuteriesEffetBouton.set(bouton, setTimeout(function () {
+    bouton.classList.remove("effet-ajout");
+    bouton.textContent = bouton.dataset.texteOriginal;
+  }, 900));
 }
 
 // Formate un nombre en prix, ex: 250000 -> "250 000 Ar"
@@ -263,6 +296,7 @@ function afficherChampsModePaiement() {
 boutonsAjouterPanier.forEach(function (bouton) {
   bouton.addEventListener("click", function () {
     ajouterAuPanier(bouton.dataset.id);
+    declencherEffetBouton(bouton);
   });
 });
 
