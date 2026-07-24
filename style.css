@@ -403,6 +403,52 @@ main {
 }
 
 
+/* PAGE ADMIN */
+
+.bloc-connexion {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.bloc-connexion form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bouton-connexion {
+  background-color: #c0392b;
+  color: #ffffff;
+}
+
+.bouton-connexion:hover {
+  background-color: #96281c;
+}
+
+.statut-connexion {
+  font-size: 0.85em;
+  color: #6b5a4a;
+}
+
+.table-stock {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.table-stock th,
+.table-stock td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0dcd3;
+}
+
+.table-stock th {
+  background-color: #2b2320;
+  color: #f4f1ea;
+}
+
+
 /* FOOTER */
 
 .pied-de-page {

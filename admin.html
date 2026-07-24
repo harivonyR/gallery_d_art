@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petite Galerie - Administration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--
+    Page d'administration : exercice pour manipuler du JSON en JavaScript.
+    Le login/mot de passe est verifie cote navigateur contre data/user.json.
+    Ce n'est PAS une vraie securite (le fichier et le code sont lisibles par
+    n'importe qui) : uniquement pour s'entrainer.
+  -->
+
+  <header class="entete">
+    <h1>Petite Galerie</h1>
+    <nav class="menu">
+      <a href="gallery.html">Accueil</a>
+    </nav>
+  </header>
+
+  <main class="page-admin">
+
+    <!-- Formulaire de connexion -->
+    <section id="connexion-admin" class="bloc-connexion">
+      <h2>Connexion administrateur</h2>
+
+      <form id="formulaire-connexion">
+        <label class="champ-paiement">
+          Identifiant
+          <input type="text" id="champ-login" required>
+        </label>
+        <label class="champ-paiement">
+          Mot de passe
+          <input type="password" id="champ-mot-de-passe" required>
+        </label>
+        <button type="submit" class="bouton bouton-connexion">Se connecter</button>
+        <p class="statut-connexion"></p>
+      </form>
+    </section>
+
+    <!-- Tableau des oeuvres, visible seulement apres connexion -->
+    <section id="tableau-admin" class="bloc-tableau" hidden>
+      <h2>Stock des oeuvres</h2>
+
+      <table class="table-stock">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Oeuvre</th>
+            <th>Artiste</th>
+            <th>Prix</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="corps-tableau-stock"></tbody>
+      </table>
+
+      <p class="statut-tableau"></p>
+    </section>
+
+  </main>
+
+  <footer class="pied-de-page">
+    <p>Fait avec &#9829; par Petite Galerie</p>
+    <p>Contact : harivonyratefiarison@gmail.com</p>
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>
