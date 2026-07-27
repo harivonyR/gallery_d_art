@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- En-tete du site : titre + menu de navigation -->
   <header class="entete">
     <h1>Petite Galerie</h1>
     <nav class="menu">
@@ -23,7 +22,6 @@
     </nav>
   </header>
 
-  <!-- Panier lateral : cache par defaut, affiche quand on clique sur le lien panier -->
   <aside id="panier-lateral" class="panier-lateral">
     <div class="panier-entete">
       <h2>Mon panier</h2>
@@ -36,12 +34,10 @@
 
     <p class="panier-total">Total : <span class="montant-total">0 Ar</span></p>
 
-    <!-- Valide la commande : deduit le stock de chaque oeuvre en memoire. -->
     <button type="button" class="bouton-livrer">📦 Livrer la commande</button>
     <p class="statut-livraison"></p>
   </aside>
 
-  <!-- Fenetre modale de paiement, ouverte au clic sur "Livrer la commande" -->
   <div id="modal-paiement" class="modal-fond" hidden>
     <div class="modal-boite" role="dialog" aria-modal="true" aria-labelledby="modal-paiement-titre">
       <div class="modal-entete">
@@ -49,7 +45,6 @@
         <button type="button" class="bouton-fermer-modal" aria-label="Fermer">✕</button>
       </div>
 
-      <!-- Recap + formulaire, masques une fois le paiement Mobile Money confirme -->
       <div class="contenu-paiement">
         <ul class="liste-paiement"></ul>
         <p class="paiement-total">Total : <span class="montant-paiement-total">0 Ar</span></p>
@@ -62,7 +57,6 @@
           </select>
         </label>
 
-        <!-- Visible si "Especes a la livraison" est choisi -->
         <div id="bloc-especes" class="bloc-mode-paiement">
           <label class="champ-paiement">
             Nom
@@ -78,7 +72,6 @@
           </label>
         </div>
 
-        <!-- Visible si "Mobile Money" est choisi -->
         <div id="bloc-mobile-money" class="bloc-mode-paiement" hidden>
           <p class="info-mobile-money">Envoie le montant total au <strong>03493xxx83</strong> (nom : Harivony), puis indique la reference de la transaction ci-dessous.</p>
           <label class="champ-paiement">
@@ -91,7 +84,6 @@
         <p class="statut-paiement"></p>
       </div>
 
-      <!-- Affiche uniquement apres confirmation d'un paiement Mobile Money -->
       <div class="confirmation-mobile-money" hidden>
         <p class="confirmation-icone" aria-hidden="true">✅</p>
         <p class="confirmation-texte"></p>
@@ -100,16 +92,13 @@
     </div>
   </div>
 
-  <!-- Contenu principal de la page -->
   <main>
 
-    <!-- Section avec toutes les oeuvres -->
     <section id="oeuvres">
       <h2>Nos oeuvres</h2>
 
       <div class="grille-galerie">
 
-        <!-- Une oeuvre = un article -->
         <article class="carte-oeuvre">
           <img src="img/oeuvre1.jfif" alt="Oeuvre 1 - Eclats acryliques" loading="lazy">
           <h3>Eclats acryliques</h3>
@@ -230,12 +219,9 @@
       </div>
     </section>
 
-    <!-- Section pour la video et l'audio -->
     <section id="medias">
       <h2>Interview de l'artiste</h2>
 
-      <!-- Video : le fichier n'existe pas encore, c'est un emplacement reserve.
-           Le placeholder.jpg sert d'image d'apercu (poster) en attendant la vraie video. -->
       <video controls poster="img/oeuvre1.jfif" width="640">
         <source src="videos/ART MALAGASY - POTI-TARATASY CREATION.mp4" type="video/mp4">
         
@@ -255,7 +241,6 @@
     </aside>
   </main>
 
-  <!-- Pied de page -->
   <footer class="pied-de-page">
     <p>Made with &#9829; by Petite Galerie</p>
     <p>Study Purpuse Only</p>

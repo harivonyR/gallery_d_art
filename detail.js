@@ -1,8 +1,4 @@
-// Lit l'id de l'oeuvre depuis l'adresse (ex: detail.html?id=PAINT01)
-// et remplit la page a partir du catalogue de l'API (gallery_api). Une
-// seule page sert ainsi de modele pour toutes les oeuvres, au lieu d'une
-// page par oeuvre. API_BASE est deja definie par script.js, charge avant
-// ce fichier dans detail.html.
+// API_BASE vient de script.js, charge avant ce fichier dans detail.html.
 
 const parametres = new URLSearchParams(window.location.search);
 const idOeuvre = parametres.get("id");

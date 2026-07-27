@@ -1,11 +1,5 @@
-// Page d'administration : verifie le login/mot de passe aupres de l'API
-// gallery_api (POST /login), puis affiche le stock des oeuvres (GET
-// /articles) et permet de le modifier (PUT /articles/{id}). Toutes les
-// donnees vivent desormais dans l'API, plus aucun fichier JSON lu en local.
-//
-// Exercice pour manipuler du JSON en JavaScript/Python. Ce n'est PAS une
-// vraie securite : pas de session ni de jeton, juste une comparaison
-// login/mot de passe a chaque connexion.
+// Login non securise (pas de session/jeton) : exercice pedagogique, pas un
+// vrai controle d'acces.
 
 const formulaireConnexion = document.querySelector("#formulaire-connexion");
 const champLogin = document.querySelector("#champ-login");
@@ -16,20 +10,14 @@ const blocTableau = document.querySelector("#tableau-admin");
 const corpsTableauStock = document.querySelector("#corps-tableau-stock");
 const statutTableau = document.querySelector(".statut-tableau");
 
-// L'API (gallery_api) qui sert et met a jour data/article.json. Evite d'avoir
-// a faire choisir un fichier a l'utilisateur : le serveur ecrit lui-meme sur
-// le disque quand on valide une modification.
 const API_BASE = "https://gallery-api-nine.vercel.app";
 
-// Les oeuvres chargees depuis l'API, gardees en memoire pour l'affichage.
 let articlesAdmin = [];
 
-// Formate un nombre en prix, ex: 250000 -> "250 000 Ar"
 function formaterPrix(nombre) {
   return nombre.toLocaleString("fr-FR") + " Ar";
 }
 
-// Charge le catalogue depuis l'API puis dessine le tableau
 function afficherTableauStock() {
   fetch(API_BASE + "/articles")
     .then(function (reponse) {
@@ -48,7 +36,6 @@ function afficherTableauStock() {
     });
 }
 
-// Reconstruit tout le corps du tableau a partir de articlesAdmin
 function redessinerTableau() {
   corpsTableauStock.innerHTML = "";
 
@@ -57,7 +44,6 @@ function redessinerTableau() {
   });
 }
 
-// Cree une ligne en mode affichage (pas d'edition) pour une oeuvre
 function creerLigne(article) {
   const ligne = document.createElement("tr");
   ligne.dataset.id = article.id;
@@ -75,8 +61,6 @@ function creerLigne(article) {
   return ligne;
 }
 
-// Bascule une ligne en mode edition : prix et stock deviennent des champs,
-// le crayon devient deux boutons Valider / Annuler.
 function passerEnEdition(ligne, article) {
   statutTableau.textContent = "";
 
@@ -89,8 +73,6 @@ function passerEnEdition(ligne, article) {
     '<button type="button" class="bouton-annuler-ligne" title="Annuler">✕</button>';
 }
 
-// Demande a l'API de mettre a jour le prix/stock d'une oeuvre. C'est le
-// serveur qui reecrit data/article.json, donc aucun fichier a choisir.
 async function enregistrerArticleSurApi(article) {
   const reponse = await fetch(API_BASE + "/articles/" + article.id, {
     method: "PUT",
@@ -105,8 +87,6 @@ async function enregistrerArticleSurApi(article) {
   return reponse.json();
 }
 
-// Un seul ecouteur sur le tableau (delegation), plutot qu'un par bouton :
-// pratique car les lignes sont recreees a chaque modification/annulation.
 corpsTableauStock.addEventListener("click", async function (evenement) {
   const ligne = evenement.target.closest("tr");
   if (!ligne) {
@@ -161,7 +141,6 @@ corpsTableauStock.addEventListener("click", async function (evenement) {
   }
 });
 
-// Verifie le login/mot de passe aupres de l'API (POST /login)
 formulaireConnexion.addEventListener("submit", function (evenement) {
   evenement.preventDefault();
 

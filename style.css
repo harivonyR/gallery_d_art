@@ -24,8 +24,6 @@ main {
   background-color: #2b2320;
   color: #f4f1ea;
   padding: 20px 30px;
-  /* Sticky : le header (et donc le badge panier) reste visible en haut de
-     l'ecran meme quand on scrolle la page. */
   position: sticky;
   top: 0;
   z-index: 5;
